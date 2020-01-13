@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1578948096 source:c:\users\utkarsh\documents\attendance2\main.cpp
+	<iostream>
+	"models/utype.h"
+	"models/user.h"
+	<fstream>
+	<string>
+	<string.h>
+
+1578945806 c:\users\utkarsh\documents\attendance2\models\user.h
+	"utype.h"
+	<fstream>
+	<string>
+	<string.h>
+
+1578941456 c:\users\utkarsh\documents\attendance2\models\utype.h
+
+1578945167 source:c:\users\utkarsh\documents\attendance\models\user.cpp
+	"user.h"
+	"utype.h"
+	<fstream>
+	<string>
+	<string.h>
+
+1578944422 c:\users\utkarsh\documents\attendance\models\user.h
+	"utype.h"
+	<fstream>
+	<string>
+	<string.h>
+
+1578941456 c:\users\utkarsh\documents\attendance\models\utype.h
+
+1578948457 source:c:\users\utkarsh\documents\attendance2\models\user.cpp
+	<iostream>
+	"user.h"
+	<fstream>
+	<string>
+	<string.h>
+
