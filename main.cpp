@@ -25,6 +25,7 @@
 #endif
 
 using namespace std;
+
 int main()
 {
     // insert first student
@@ -54,6 +55,5 @@ int main()
     }
     in.close();
 
-    in.close();
     return 0;
 }
