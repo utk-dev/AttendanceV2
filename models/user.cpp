@@ -169,6 +169,10 @@ int USER::getIndex()
     return std::stoi(getUid().substr(2));
 }
 
+char* USER::getPassword(){
+    return password;
+}
+
 /** Writes a USER object to a file output stream
  * The file needs to be opened in ios::binary mode
 */
@@ -186,3 +190,5 @@ std::ifstream& operator>>(std::ifstream& in, USER& u)
     in.read((char *)&u, sizeof(USER));
     return in;
 }
+
+

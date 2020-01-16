@@ -50,19 +50,67 @@ USER* logIn(){
 
 
     if(getRnoByUid(user_id) < getRnoByUid(getNewUid(utype))){
-        std::ifstream file;
-        switch(utype){
-            case TYPE::STUDENT:
-                file.open("../models/students.dat",std::ios::binary);
-                break;
-            case TYPE::TEACHER:
-                file.open("../models/teachers.dat",std::ios::binary);
-                break;
-            case TYPE::MODERATOR:
-                file.open("../models/moderators.dat",std::ios::binary);
-                break;
+        std::fstream *file=openfileByType(utype);
+       
+        USER *user;
+         
+        file->seekg(sizeof(USER)*getRnoByUid(user_id));
+        file->read((char *)user,sizeof(USER));
+        file->close();
+
+        if(strcasecmp(password.c_str(),user->getPassword()) == 0){
+            return user;
+        }else{
+            return nullptr;
         }
-        
+
     }
+}
+
+bool createUser(){
+    std::string name,password;
+    TYPE type;
+    int type_no;
+
+    std::cout<<"\n\tCreate New User\n";
+    std::cout<<"\nEnter Name :";
+    std::cin>>name;
+    std::cout<<"\nEnter Password :";
+    std::cin>>password;
+
+
+    //label for validate right User type choice.....
+    user_type_lb:
+
+    std::cout<<"\nSelect type of user\n1 for STUDENT\n2 For Teacher\n3 For MODERTAOR :";
+    std::cin>>type_no;
+
+    switch(type_no){
+            case 0:
+                type=TYPE::STUDENT;
+                break;
+            case 1:
+                type=TYPE::TEACHER;
+                break;
+            case 2:
+                type=TYPE::MODERATOR;
+                break;
+            default:
+                std::cout<<"\nWrong choice of User Type..";
+                goto user_type_lb;
+                break;
+    }
+     
+    USER user(type,name,password);
+    std::fstream *file=openfileByType(type);
+    file->write((char *)&user,sizeof(USER));
+    file->close();
+
+    return true;
+}
+
+bool changePassword(){
+
+
 }
 

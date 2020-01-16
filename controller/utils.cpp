@@ -29,3 +29,19 @@ TYPE getTypeByUid(std::string uid){
     else 
         return TYPE::MODERATOR;
 }
+
+std::fstream* openfileByType(TYPE type){
+    std::fstream file;
+    switch(type){
+        case TYPE::STUDENT:
+            file.open("../models/students.dat",std::ios::binary);
+            break;
+        case TYPE::TEACHER:
+            file.open("../models/teachers.dat",std::ios::binary);
+            break;
+        case TYPE::MODERATOR:
+            file.open("../models/moderators.dat",std::ios::binary);
+            break;
+    }
+    return &file;
+}
