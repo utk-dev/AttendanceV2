@@ -32,10 +32,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="controller/utils.cpp" />
+		<Unit filename="controller/utils.h" />
+		<Unit filename="controller/view.cpp" />
+		<Unit filename="controller/view.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="models/day.cpp" />
+		<Unit filename="models/day.h" />
 		<Unit filename="models/user.cpp" />
 		<Unit filename="models/user.h" />
 		<Unit filename="models/utype.h" />
+		<Unit filename="view.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

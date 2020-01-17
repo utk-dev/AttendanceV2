@@ -35,6 +35,7 @@ public:
     std::string getUid();
     TYPE getUserType();
     int getIndex();
+    char* getPassword();
 };
 
 std::ofstream& operator<<(std::ofstream&, const USER&);

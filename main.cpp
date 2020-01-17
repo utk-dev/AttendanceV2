@@ -24,11 +24,28 @@
 #include <string.h>
 #endif
 
+#ifndef __IOSTREAM__
+#define __IOSTREAM__
+#include <iostream>
+#endif
+
+
+#ifndef __UTILS__
+#define __UTILS__
+#include "controller/utils.h"
+#endif
+
+#ifndef __VIEW__
+#define __VIEW__
+#include "controller/view.h"
+#endif
+
 using namespace std;
+
 int main()
 {
     // insert first student
-    USER stu1(TYPE::STUDENT, "Utkarsh Gupta", "Windows@10");
+    /*USER stu1(TYPE::STUDENT, "Utkarsh Gupta", "Windows@10");
     ofstream out("models/students.dat", ios::binary | ios::trunc);
     out << stu1;
     out.close();
@@ -43,7 +60,7 @@ int main()
     USER stu5(TYPE::STUDENT, "Ankit Mishra", "WhistleMania");
     out.open("models/students.dat", ios::binary | ios::app);
     out << stu5;
-    out.close();
+    out.close();*/
 
     // read both students
     USER stu3;
@@ -53,7 +70,11 @@ int main()
         cout << stu3.getUid() << " " << stu3.getName() << " " << stu3.getIndex() << "\n";
     }
     in.close();
+    USER *current=logIn();
+    if(current==nullptr){
+        std::cout<<"Invalid User";
+    }
+    changePassword(current);
 
-    in.close();
     return 0;
 }
