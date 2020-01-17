@@ -5,8 +5,8 @@
 #include <string.h>
 #endif
 
-#ifndef __UTYPE__
-#define __UTYPE__
+#ifndef __TYPE__
+#define __TYPE__
 #include "../models/utype.h"
 #endif // __DAY__
 
@@ -21,5 +21,7 @@ USER getUserByUid(std::string);
 TYPE getTypeByUid(std::string);
 void showMainMenu();
 
+
 //this function is open aprropriate file with given userType
-std::fstream* openfileByType(TYPE);
+std::ifstream* openReadfileByType(TYPE);
+std::ofstream* openWritefileByType(TYPE);

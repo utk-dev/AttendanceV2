@@ -14,6 +14,10 @@
 #include "../models/utype.h"
 #endif // __DAY__
 
+#ifndef __UTILS__
+#define __UTILS__
+#include "utils.h"
+#endif
 
 
 int getRnoByUid(std::string uid){
@@ -22,26 +26,57 @@ int getRnoByUid(std::string uid){
 
 TYPE getTypeByUid(std::string uid){
     std::string prefix = uid.substr(0, 2);
-    if(prefix == "ST") 
+    if(prefix == "ST")
         return TYPE::STUDENT;
-    else if(prefix == "TC") 
+    else if(prefix == "TC")
         return TYPE::TEACHER;
-    else 
+    else
         return TYPE::MODERATOR;
 }
 
-std::fstream* openfileByType(TYPE type){
-    std::fstream file;
+std::ifstream* openReadfileByType(TYPE type){
+    std::ifstream *file=new std::ifstream;
     switch(type){
         case TYPE::STUDENT:
-            file.open("../models/students.dat",std::ios::binary);
+            file->open("./models/students.dat",std::ios::binary);
             break;
         case TYPE::TEACHER:
-            file.open("../models/teachers.dat",std::ios::binary);
+            file->open("./models/teachers.dat",std::ios::binary);
             break;
         case TYPE::MODERATOR:
-            file.open("../models/moderators.dat",std::ios::binary);
+            file->open("./models/moderators.dat",std::ios::binary);
             break;
     }
-    return &file;
+
+    return file;
+}
+std::ofstream* openWritefileByType(TYPE type){
+    std::ofstream *file=new std::ofstream;
+    switch(type){
+        case TYPE::STUDENT:
+            file->open("./models/students.dat",std::ios::binary | std::ios::app);
+            break;
+        case TYPE::TEACHER:
+            file->open("./models/teachers.dat",std::ios::binary | std::ios::app);
+            break;
+        case TYPE::MODERATOR:
+            file->open("./models/moderators.dat",std::ios::binary | std::ios::app);
+            break;
+    }
+    return file;
+}
+std::fstream* openReadWritefileByType(TYPE type){
+    std::fstream *file=new std::fstream;
+    switch(type){
+        case TYPE::STUDENT:
+            file->open("./models/students.dat",std::ios::binary | std::ios::app);
+            break;
+        case TYPE::TEACHER:
+            file->open("./models/teachers.dat",std::ios::binary | std::ios::app);
+            break;
+        case TYPE::MODERATOR:
+            file->open("./models/moderators.dat",std::ios::binary | std::ios::app);
+            break;
+    }
+    return file;
 }

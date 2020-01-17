@@ -7,7 +7,7 @@
 */
 USER* logIn();
 bool createUser();
-bool changePassword();
+bool changePassword(USER*);
 void takeAttendance();
 void generateClassReportPercentage();
 void generateIndividualReportPercentage();

@@ -33,28 +33,28 @@
 
 USER* logIn(){
     std::string user_id,password="";
-    char ch;
+
     std::cout<<"\n\tLog in\n\n";
     std::cout<<"\nUser Id : ";
     std::cin>>user_id;
     std::cout<<"\nPassword: ";
     std::cin>>password;
-    
+
     std::string uidPrefix = user_id.substr(0,2);
+
     if(!(uidPrefix == "ST" || uidPrefix == "TC" || uidPrefix == "MD")){
         return nullptr;
     }
 
-    TYPE utype=getTypeByUid(user_id);      
-
-
+    TYPE utype=getTypeByUid(user_id);
 
     if(getRnoByUid(user_id) < getRnoByUid(getNewUid(utype))){
-        std::fstream *file=openfileByType(utype);
-       
-        USER *user;
-         
-        file->seekg(sizeof(USER)*getRnoByUid(user_id));
+
+        std::ifstream *file=openReadfileByType(utype);
+
+        USER *user=new USER();
+
+        file->seekg(sizeof(USER)*getRnoByUid(user_id),std::ios::beg);
         file->read((char *)user,sizeof(USER));
         file->close();
 
@@ -63,8 +63,8 @@ USER* logIn(){
         }else{
             return nullptr;
         }
-
     }
+    return nullptr;
 }
 
 bool createUser(){
@@ -82,7 +82,7 @@ bool createUser(){
     //label for validate right User type choice.....
     user_type_lb:
 
-    std::cout<<"\nSelect type of user\n1 for STUDENT\n2 For Teacher\n3 For MODERTAOR :";
+    std::cout<<"\nSelect type of user\n0 for STUDENT\n1 For Teacher\n2 For MODERTAOR :\n\nEnter Choice : ";
     std::cin>>type_no;
 
     switch(type_no){
@@ -100,17 +100,41 @@ bool createUser(){
                 goto user_type_lb;
                 break;
     }
-     
+
     USER user(type,name,password);
-    std::fstream *file=openfileByType(type);
-    file->write((char *)&user,sizeof(USER));
+    std::ofstream *file=openWritefileByType(type);
+    if(file->is_open())
+    {
+        std::cout<<"Open";
+    }else{
+        std::cout<<"Not Open";
+    }
+    (*file)<<user;
     file->close();
 
     return true;
 }
 
-bool changePassword(){
+bool changePassword(USER *user){
+    std::string password,c_password;
+    std::cout<<"\n\tChange Password";
 
+    //label for password and confirm password is not match...
+    try_again:
 
+    std::cout<<"\nEnter New Password : ";
+    std::cin>>password;
+    std::cout<<"\nEnter Confirm Password : ";
+    std::cin>>c_password;
+
+    if(password!=c_password)
+        goto try_again;
+    user->changePassword(password);
+    std::ofstream *file=openWritefileByType(user->getUserType());
+
+    file->seekp(sizeof(USER)*getRnoByUid(user->getUid()),std::ios::beg);
+    (*file) << (*user);
+    file->close();
+    return true;
 }
 
