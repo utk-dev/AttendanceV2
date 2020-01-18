@@ -169,8 +169,8 @@ int USER::getIndex()
     return std::stoi(getUid().substr(2));
 }
 
-char* USER::getPassword(){
-    return password;
+std::string USER::getPassword(){
+    return std::string(password);
 }
 
 /** Writes a USER object to a file output stream

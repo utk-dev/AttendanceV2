@@ -21,7 +21,6 @@ USER getUserByUid(std::string);
 TYPE getTypeByUid(std::string);
 void showMainMenu();
 
-
-//this function is open aprropriate file with given userType
-std::ifstream* openReadfileByType(TYPE);
-std::ofstream* openWritefileByType(TYPE);
+//this function is open appropriate file with given userType
+void openReadfileByType(TYPE, std::ifstream&);
+void openWritefileByType(TYPE, std::ofstream&);
