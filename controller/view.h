@@ -5,12 +5,14 @@
 /**
 *
 */
-USER* logIn();
+bool logIn(USER&);
 bool createUser();
-bool changePassword(USER*);
-void takeAttendance();
-void generateClassReportPercentage();
-void generateIndividualReportPercentage();
+bool changePassword(USER&);
+void takeAttendance(USER&);
+void generateClassReportPercentage(USER&);
+void generateIndividualReportPercentage(USER&);
+int showMainMenu(USER&);
+int showLoginMenu();
 
 
 

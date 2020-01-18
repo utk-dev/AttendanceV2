@@ -20,55 +20,64 @@
 #include <string.h>
 #endif
 
+#ifndef __VECTOR__
+#define __VECTOR__
+#include <vector>
+#endif // __VECTOR__
+
 #ifndef __UTILS__
 #define __UTILS__
 #include "utils.h"
 #endif // __UTILS__
 
-#ifndef __FILEHANDLER__
-#define __FILEHANDLER__
-#include <fstream>
-#endif
+#ifndef __DAY__
+#define __DAY__
+#include "../models/day.h"
+#endif // __DAY__
+
+#ifndef __IOMANIP__
+#define __IOMANIP__
+#include <iomanip>
+#endif // __IOMANIP__
 
 
-USER* logIn(){
-    std::string user_id,password="";
 
-    std::cout<<"\n\tLog in\n\n";
-    std::cout<<"\nUser Id : ";
-    std::cin>>user_id;
-    std::cout<<"\nPassword: ";
-    std::cin>>password;
+bool logIn(USER& succ)
+{
+    std::string user_id,password = "";
+    std::cout << "## Log in ##\n";
+    std::cout << "\nUser Id : ";
+    std::cin >> user_id;
+    std::cout << "Password: ";
+    std::cin >> password;
 
     std::string uidPrefix = user_id.substr(0,2);
 
-    if(!(uidPrefix == "ST" || uidPrefix == "TC" || uidPrefix == "MD")){
-        return nullptr;
+    if(!(uidPrefix == "ST" || uidPrefix == "TC" || uidPrefix == "MD"))
+    {
+        return false;
     }
 
-    TYPE utype=getTypeByUid(user_id);
+    TYPE utype = getTypeByUid(user_id);
 
-    if(getRnoByUid(user_id) < getRnoByUid(getNewUid(utype))){
+    if(getRnoByUid(user_id) < getRnoByUid(getNewUid(utype)))
+    {
 
-        std::ifstream *file=openReadfileByType(utype);
+        std::ifstream file;
+        openReadfileByType(utype, file);
 
-        USER *user=new USER();
+        file.seekg(sizeof(USER)*getRnoByUid(user_id), std::ios::beg);
+        file >> succ;
+        file.close();
 
-        file->seekg(sizeof(USER)*getRnoByUid(user_id),std::ios::beg);
-        file->read((char *)user,sizeof(USER));
-        file->close();
-
-        if(strcasecmp(password.c_str(),user->getPassword()) == 0){
-            return user;
-        }else{
-            return nullptr;
-        }
+        return password == succ.getPassword();
     }
-    return nullptr;
+    return false;
 }
 
-bool createUser(){
-    std::string name,password;
+bool createUser()
+{
+    std::string name, password;
     TYPE type;
     int type_no;
 
@@ -78,63 +87,264 @@ bool createUser(){
     std::cout<<"\nEnter Password :";
     std::cin>>password;
 
-
-    //label for validate right User type choice.....
-    user_type_lb:
-
     std::cout<<"\nSelect type of user\n0 for STUDENT\n1 For Teacher\n2 For MODERTAOR :\n\nEnter Choice : ";
     std::cin>>type_no;
 
-    switch(type_no){
-            case 0:
-                type=TYPE::STUDENT;
-                break;
-            case 1:
-                type=TYPE::TEACHER;
-                break;
-            case 2:
-                type=TYPE::MODERATOR;
-                break;
-            default:
-                std::cout<<"\nWrong choice of User Type..";
-                goto user_type_lb;
-                break;
-    }
-
-    USER user(type,name,password);
-    std::ofstream *file=openWritefileByType(type);
-    if(file->is_open())
+    switch(type_no)
     {
-        std::cout<<"Open";
-    }else{
-        std::cout<<"Not Open";
+    case 0:
+        type=TYPE::STUDENT;
+        break;
+    case 1:
+        type=TYPE::TEACHER;
+        break;
+    case 2:
+        type=TYPE::MODERATOR;
+        break;
+    default:
+        std::cout<<"\nWrong choice of User Type..";
+        return false;
     }
-    (*file)<<user;
-    file->close();
 
-    return true;
+    USER user(type, name, password);
+    std::ofstream file;
+    openWritefileByType(type, file);
+
+    if(file.is_open())
+    {
+        file << user;
+        file.close();
+        if(user.getUserType() == TYPE::TEACHER)
+        {
+            std::string registerName = "models/registers/" + user.getUid() + ".dat";
+            std::ofstream Register(registerName);
+            Register.close();
+        }
+        return true;
+    }
+    return false;
 }
 
-bool changePassword(USER *user){
-    std::string password,c_password;
+bool changePassword(USER& user)
+{
+    std::string password, c_password;
     std::cout<<"\n\tChange Password";
 
-    //label for password and confirm password is not match...
-    try_again:
-
-    std::cout<<"\nEnter New Password : ";
+    std::cout<<"\nNew Password : ";
     std::cin>>password;
-    std::cout<<"\nEnter Confirm Password : ";
+    std::cout<<"\nConfirm New Password : ";
     std::cin>>c_password;
 
-    if(password!=c_password)
-        goto try_again;
-    user->changePassword(password);
-    std::ofstream *file=openWritefileByType(user->getUserType());
+    if(password != c_password)
+    {
+        return false;
+    }
 
-    file->seekp(sizeof(USER)*getRnoByUid(user->getUid()),std::ios::beg);
-    (*file) << (*user);
-    file->close();
+    user.changePassword(password);
+    std::fstream file;
+    std::string fname = "models/";
+
+    switch(user.getUserType())
+    {
+    case TYPE::STUDENT:
+        fname += "students.dat";
+        break;
+    case TYPE::TEACHER:
+        fname += "teachers.dat";
+        break;
+    case TYPE::MODERATOR:
+        fname += "moderators.dat";
+    }
+
+    file.open(fname);
+    file.seekp(sizeof(USER)*getRnoByUid(user.getUid()), std::ios::beg);
+    file.write((char *)&user,sizeof(user));
+
+    file.close();
     return true;
 }
+
+void takeAttendance(USER& teacher)
+{
+    std::ifstream fin("models/students.dat");
+    if(fin.is_open())
+    {
+        Day d;
+        USER curr;
+        std::cout << "\n\nATTENDANCE for " << d.getToday().day << "-" << d.getToday().month << "-" << d.getToday().year << "\n\n";
+        std::cout << "Mark P/A for each student\n";
+        while(fin >> curr)
+        {
+            std::cout << curr.getUid() << "  " << curr.getName() << ": ";
+            std::cin >> d.attendance[curr.getIndex()];
+        }
+        fin.close();
+
+        std::string filePath = "models/registers/" + teacher.getUid() + ".dat";
+        std::ofstream file(filePath, std::ios::binary | std::ios::app);
+        file << d;
+        file.close();
+    }
+    else
+    {
+        std::cout << "No student data available.";
+    }
+}
+
+// report generation not working
+void generateClassReportPercentage(USER& usr)
+{
+    std::cout << std::fixed << std::setprecision(2);
+    if(usr.getUserType() == TYPE::TEACHER)
+    {
+        std::string filePath = "models/registers/" + usr.getUid() + ".dat";
+        std::ifstream Register(filePath);
+        int totalCount[200];
+        Register.seekg(0, Register.end);
+        int totalDays = Register.tellg() / sizeof(Day);
+        for(int i = 0; i < totalDays; i++)
+            totalCount[i] = 0;
+
+        Day d;
+        int i = 0;
+        Register.seekg(0, Register.beg);
+        while(Register >> d)
+        {
+            totalCount[i] += (d.attendance[i] == 'P' ? 1 : 0);
+            i++;
+        }
+        Register.close();
+
+        std::ifstream fin;
+        USER curr;
+        openReadfileByType(TYPE::STUDENT, fin);
+        std::cout << "\n  Uid  |  Attendance  ";
+        while(fin >> curr)
+        {
+            std::cout << "\n " << curr.getUid() << " |  " << totalCount[curr.getIndex()]*100.00/totalDays << "%";
+        }
+        fin.close();
+    }
+    else
+    {
+        int totalCount[10][200];
+        int totalDays[10] = {0};
+        for(int i = 0; i < 10; i++)
+            for(int j = 0; j < 200; j++)
+                totalCount[i][j] = 0;
+        std::ifstream teachers, students;
+        openReadfileByType(TYPE::TEACHER, teachers);
+        USER teacher;
+        std::cout << "\n  UID  ";
+        while(teachers >> teacher)
+        {
+            std::cout << "| " << teacher.getUid() << " ";
+            std::string filePath = "models/registers/" + teacher.getUid() + ".dat";
+            std::ifstream Register(filePath);
+            Day d;
+            int i = 0;
+            while(!Register.eof())
+            {
+                Register.read((char *)&d, sizeof(Day));
+                totalCount[teacher.getIndex()][i] += (d.attendance[i] == 'P' ? 1 : 0);
+            }
+            Register.seekg(0, Register.end);
+            totalDays[teacher.getIndex()] = Register.tellg() / sizeof(Day);
+            Register.close();
+        }
+        teachers.seekg(0, teachers.beg);
+
+        openReadfileByType(TYPE::STUDENT, students);
+        USER student;
+        while(students >> student)
+        {
+            std::cout << "\n" << student.getUid();
+            while(teachers >> teacher)
+            {
+                std::cout << " | " << totalCount[teacher.getIndex()][student.getIndex()]*100.00/totalDays[teacher.getIndex()] << "%";
+            }
+            teachers.seekg(0, teachers.beg);
+        }
+        teachers.close();
+        students.close();
+    }
+    std::cout << "\n\n";
+}
+
+void generateIndividualReportPercentage(USER& student)
+{
+    std::cout << std::fixed << std::setprecision(2);
+    std::ifstream file;
+    openReadfileByType(TYPE::TEACHER, file);
+    USER teacher;
+    std::cout << "\n\nReport for " << student.getName() << "\n";
+    std::cout << "\n Subject | Attendance\n";
+    while(file >> teacher)
+    {
+        std::string filePath = "models/registers/" + teacher.getUid() + ".dat";
+        std::ifstream Register(filePath);
+        int total = 0;
+        Day d;
+        while(Register >> d)
+        {
+            total += (d.attendance[student.getIndex()] == 'P' ? 1 : 0);
+        }
+        Register.seekg(0, Register.end);
+        int totalDays = Register.tellg() / sizeof(Day);
+        Register.close();
+
+        std::cout << "  " << teacher.getUid() << "  | " << total*100.00/totalDays << "%\n";
+    }
+}
+
+int showMainMenu(USER& curr)
+{
+    int choice;
+    TYPE t = curr.getUserType();
+            std::cout << "------------------------\n";
+    do
+    {
+        if(t == TYPE::TEACHER)
+        {
+            std::cout << "1. Take Attendance\n";
+        }
+        if(t == TYPE::STUDENT)
+        {
+            std::cout << "2. Generate Report\n";
+        }
+        if(t == TYPE::MODERATOR)
+        {
+            std::cout << "3. Create New User\n";
+        }
+        if(t == TYPE::MODERATOR || t == TYPE::TEACHER)
+        {
+            std::cout << "4. Generate Class Report\n";
+        }
+            std::cout << "5. Change Password\n";
+            std::cout << "0. Log Out\n";
+            std::cout << "------------------------\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+    }
+    while(choice < 0 || choice > 5);
+    return choice;
+}
+
+int showLoginMenu()
+{
+    std::cout << "::ATTENDANCE MANAGEMENET SYSTEM::\n";
+    int choice;
+    do
+    {
+        std::cout << "---------------------------------\n";
+        std::cout << "  1. Login\n";
+        std::cout << "  2. Exit\n";
+        std::cout << "---------------------------------\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+    }while(choice < 1 || choice > 2);
+    return choice;
+}
+
+
 

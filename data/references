@@ -1,0 +1,5 @@
+1. https://stackoverflow.com/questions/6427698/write-to-the-middle-of-an-existing-binary-file-c#comment17719040_6427915
+
+Yes because ios::out alone results in an open call of the following kind on linux : O_WRONLY|O_CREAT|O_TRUNC, while combining ios::out | ios::in results in an O_RDWR call, without the O_TRUNC.
+
+USERNAME: daminetreg

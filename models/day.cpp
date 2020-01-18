@@ -34,3 +34,15 @@ Date Day::getToday()
 {
     return today;
 }
+
+std::ifstream& operator>>(std::ifstream& f, Day& d)
+{
+    f.read((char *)&d, sizeof(Day));
+    return f;
+}
+
+std::ofstream& operator<<(std::ofstream& f, const Day &d)
+{
+    f.write((char *)&d, sizeof(Day));
+    return f;
+}

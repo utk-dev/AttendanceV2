@@ -34,49 +34,29 @@ TYPE getTypeByUid(std::string uid){
         return TYPE::MODERATOR;
 }
 
-std::ifstream* openReadfileByType(TYPE type){
-    std::ifstream *file=new std::ifstream;
+void openReadfileByType(TYPE type, std::ifstream& file){
     switch(type){
         case TYPE::STUDENT:
-            file->open("./models/students.dat",std::ios::binary);
+            file.open("models/students.dat",std::ios::binary);
             break;
         case TYPE::TEACHER:
-            file->open("./models/teachers.dat",std::ios::binary);
+            file.open("models/teachers.dat",std::ios::binary);
             break;
         case TYPE::MODERATOR:
-            file->open("./models/moderators.dat",std::ios::binary);
-            break;
+            file.open("models/moderators.dat",std::ios::binary);
     }
+}
 
-    return file;
-}
-std::ofstream* openWritefileByType(TYPE type){
-    std::ofstream *file=new std::ofstream;
+void openWritefileByType(TYPE type, std::ofstream& file){
     switch(type){
         case TYPE::STUDENT:
-            file->open("./models/students.dat",std::ios::binary | std::ios::app);
+            file.open("models/students.dat",std::ios::binary | std::ios::app);
             break;
         case TYPE::TEACHER:
-            file->open("./models/teachers.dat",std::ios::binary | std::ios::app);
+            file.open("models/teachers.dat",std::ios::binary | std::ios::app);
             break;
         case TYPE::MODERATOR:
-            file->open("./models/moderators.dat",std::ios::binary | std::ios::app);
-            break;
+            file.open("models/moderators.dat",std::ios::binary | std::ios::app);
     }
-    return file;
 }
-std::fstream* openReadWritefileByType(TYPE type){
-    std::fstream *file=new std::fstream;
-    switch(type){
-        case TYPE::STUDENT:
-            file->open("./models/students.dat",std::ios::binary | std::ios::app);
-            break;
-        case TYPE::TEACHER:
-            file->open("./models/teachers.dat",std::ios::binary | std::ios::app);
-            break;
-        case TYPE::MODERATOR:
-            file->open("./models/moderators.dat",std::ios::binary | std::ios::app);
-            break;
-    }
-    return file;
-}
+
