@@ -55,17 +55,17 @@ void addDummyData()
     out << stu5;
     out.close();
 
-    USER tea1(TYPE::TEACHER, "Amit Bhagat", "Windows@10");
+    USER tea1(TYPE::TEACHER, "Akshay Khanna", "Windows@10");
     out.open("models/teachers.dat", ios::binary | ios::trunc);
     out << tea1;
     out.close();
 
-    USER tea2(TYPE::TEACHER, "Sanjay Sharma", "Windows@10");
+    USER tea2(TYPE::TEACHER, "Sumit Kumar", "Windows@10");
     out.open("models/teachers.dat", ios::binary | ios::app);
     out << tea2;
     out.close();
 
-    USER mod1(TYPE::MODERATOR, "Raghu Baba", "Windows@10");
+    USER mod1(TYPE::MODERATOR, "Abhay Rawat", "Windows@10");
     out.open("models/moderators.dat", ios::binary | ios::trunc);
     out << mod1;
     out.close();
@@ -118,7 +118,7 @@ int main()
                     case 5:
                         bool y = changePassword(curr);
                         if(y) cout << "\nPassword Change Successful!\n";
-                        if(y) cout << "\nPassword Change Failed!\n";
+                        else cout << "\nPassword Change Failed!\n";
                         break;
                     }
                 }

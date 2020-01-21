@@ -38,7 +38,10 @@
 		<Unit filename="controller/view.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="models/day.cpp" />
+		<Unit filename="models/day.h" />
 		<Unit filename="models/user.cpp" />
+		<Unit filename="models/user.h" />
+		<Unit filename="models/utype.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
