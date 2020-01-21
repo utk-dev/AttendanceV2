@@ -41,7 +41,6 @@
 #endif // __IOMANIP__
 void generateClassReportByModerator();
 
-r
 bool logIn(USER& succ)
 {
     std::string user_id,password = "";
