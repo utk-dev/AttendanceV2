@@ -37,62 +37,64 @@
 	<string>
 	<string.h>
 
-1579265778 source:/media/ronit/New Volume/c language project/AttendanceV2/main.cpp
+1579350728 source:/media/ronit/New Volume/c language project/AttendanceV2/main.cpp
 	<iostream>
 	"models/utype.h"
 	"models/user.h"
 	<fstream>
 	<string>
 	<string.h>
-	<iostream>
 	"controller/utils.h"
 	"controller/view.h"
 
-1579078544 /media/ronit/New Volume/c language project/AttendanceV2/models/utype.h
+1579350073 /media/ronit/New Volume/c language project/AttendanceV2/models/utype.h
 
-1579194122 /media/ronit/New Volume/c language project/AttendanceV2/models/user.h
+1579350073 /media/ronit/New Volume/c language project/AttendanceV2/models/user.h
 	"utype.h"
 	<fstream>
 	<string>
 	<string.h>
 
-1579082257 source:/media/ronit/New Volume/c language project/AttendanceV2/models/day.cpp
+1579350073 source:/media/ronit/New Volume/c language project/AttendanceV2/models/day.cpp
 	<ctime>
 	<iostream>
 	"day.h"
 
-1579080755 /media/ronit/New Volume/c language project/AttendanceV2/models/day.h
+1579350073 /media/ronit/New Volume/c language project/AttendanceV2/models/day.h
+	<fstream>
 
-1579194122 source:/media/ronit/New Volume/c language project/AttendanceV2/models/user.cpp
+1579350073 source:/media/ronit/New Volume/c language project/AttendanceV2/models/user.cpp
 	<iostream>
 	"user.h"
 	<fstream>
 	<string>
 	<string.h>
 
-1579263977 source:/media/ronit/New Volume/c language project/AttendanceV2/controller/utils.cpp
+1579350073 source:/media/ronit/New Volume/c language project/AttendanceV2/controller/utils.cpp
 	<string>
 	<string.h>
 	"../models/user.h"
 	"../models/utype.h"
 	"utils.h"
 
-1579265800 source:/media/ronit/New Volume/c language project/AttendanceV2/controller/view.cpp
+1579596303 source:/media/ronit/New Volume/c language project/AttendanceV2/controller/view.cpp
 	"../models/user.h"
 	<iostream>
 	<fstream>
 	<string>
 	<string.h>
+	<vector>
 	"utils.h"
-	<fstream>
+	"../models/day.h"
+	<iomanip>
 
-1579198064 /media/ronit/New Volume/c language project/AttendanceV2/controller/utils.h
+1579350073 /media/ronit/New Volume/c language project/AttendanceV2/controller/utils.h
 	<string>
 	<string.h>
 	"../models/utype.h"
 	<fstream>
 
-1579265827 /media/ronit/New Volume/c language project/AttendanceV2/controller/view.h
+1579350073 /media/ronit/New Volume/c language project/AttendanceV2/controller/view.h
 	"user.h"
 
 1579295980 source:/home/utkarsh/Documents/AttendanceV2/controller/utils.cpp

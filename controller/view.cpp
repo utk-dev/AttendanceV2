@@ -197,27 +197,37 @@ void generateClassReportPercentage(USER& usr)
     std::cout << std::fixed << std::setprecision(2);
     if(usr.getUserType() == TYPE::TEACHER)
     {
-        std::string filePath = "models/registers/" + usr.getUid() + ".dat";
-        std::ifstream Register(filePath);
-        int totalCount[200];
-        Register.seekg(0, Register.end);
-        int totalDays = Register.tellg() / sizeof(Day);
-        for(int i = 0; i < totalDays; i++)
-            totalCount[i] = 0;
-
-        Day d;
-        int i = 0;
-        Register.seekg(0, Register.beg);
-        while(Register >> d)
-        {
-            totalCount[i] += (d.attendance[i] == 'P' ? 1 : 0);
-            i++;
-        }
-        Register.close();
 
         std::ifstream fin;
         USER curr;
         openReadfileByType(TYPE::STUDENT, fin);
+        fin.seekg(0,fin.end);
+        int total_student=fin.tellg()/sizeof(USER);
+        fin.seekg(0,fin.beg);
+
+        std::string filePath = "models/registers/" + usr.getUid() + ".dat";
+        std::ifstream Register(filePath);
+             if(Register.is_open())
+            std::cout << "Open";
+        else{
+            std::cout<<"Not Open"<<Register.exceptions();
+        }
+        int totalCount[200];
+        Register.seekg(0, Register.end);
+        int totalDays = Register.tellg() / sizeof(Day);
+        for(int i = 0; i < total_student; i++)
+            totalCount[i] = 0;
+
+        Day d;
+        Register.seekg(0, Register.beg);
+        while(Register >> d)
+        {
+            for(int j=0;j<total_student;j++){
+                totalCount[j] += (d.attendance[j] == 'P' ? 1 : 0);
+            }
+        }
+        Register.close();
+
         std::cout << "\n  Uid  |  Attendance  ";
         while(fin >> curr)
         {
@@ -241,6 +251,7 @@ void generateClassReportPercentage(USER& usr)
             std::cout << "| " << teacher.getUid() << " ";
             std::string filePath = "models/registers/" + teacher.getUid() + ".dat";
             std::ifstream Register(filePath);
+
             Day d;
             int i = 0;
             while(!Register.eof())
@@ -271,6 +282,13 @@ void generateClassReportPercentage(USER& usr)
     std::cout << "\n\n";
 }
 
+void generateClassReportByTeacher(USER& user){
+    Day d;
+    int total[200];
+    std::ifstream file("models/registers/");
+}
+
+
 void generateIndividualReportPercentage(USER& student)
 {
     std::cout << std::fixed << std::setprecision(2);
@@ -283,6 +301,7 @@ void generateIndividualReportPercentage(USER& student)
     {
         std::string filePath = "models/registers/" + teacher.getUid() + ".dat";
         std::ifstream Register(filePath);
+
         int total = 0;
         Day d;
         while(Register >> d)
