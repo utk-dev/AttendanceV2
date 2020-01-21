@@ -39,9 +39,9 @@
 #define __IOMANIP__
 #include <iomanip>
 #endif // __IOMANIP__
+void generateClassReportByModerator();
 
-
-
+r
 bool logIn(USER& succ)
 {
     std::string user_id,password = "";
@@ -237,55 +237,21 @@ void generateClassReportPercentage(USER& usr)
     }
     else
     {
-        int totalCount[10][200];
-        int totalDays[10] = {0};
-        for(int i = 0; i < 10; i++)
-            for(int j = 0; j < 200; j++)
-                totalCount[i][j] = 0;
+       generateClassReportByModerator();
+    }
+    std::cout << "\n\n";
+}
+
+void generateClassReportByModerator(){
         std::ifstream teachers, students;
         openReadfileByType(TYPE::TEACHER, teachers);
         USER teacher;
         std::cout << "\n  UID  ";
         while(teachers >> teacher)
         {
-            std::cout << "| " << teacher.getUid() << " ";
-            std::string filePath = "models/registers/" + teacher.getUid() + ".dat";
-            std::ifstream Register(filePath);
-
-            Day d;
-            int i = 0;
-            while(!Register.eof())
-            {
-                Register.read((char *)&d, sizeof(Day));
-                totalCount[teacher.getIndex()][i] += (d.attendance[i] == 'P' ? 1 : 0);
-            }
-            Register.seekg(0, Register.end);
-            totalDays[teacher.getIndex()] = Register.tellg() / sizeof(Day);
-            Register.close();
-        }
-        teachers.seekg(0, teachers.beg);
-
-        openReadfileByType(TYPE::STUDENT, students);
-        USER student;
-        while(students >> student)
-        {
-            std::cout << "\n" << student.getUid();
-            while(teachers >> teacher)
-            {
-                std::cout << " | " << totalCount[teacher.getIndex()][student.getIndex()]*100.00/totalDays[teacher.getIndex()] << "%";
-            }
-            teachers.seekg(0, teachers.beg);
+            generateClassReportPercentage(teacher);
         }
         teachers.close();
-        students.close();
-    }
-    std::cout << "\n\n";
-}
-
-void generateClassReportByTeacher(USER& user){
-    Day d;
-    int total[200];
-    std::ifstream file("models/registers/");
 }
 
 

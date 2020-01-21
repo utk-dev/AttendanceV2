@@ -13,7 +13,8 @@ void generateClassReportPercentage(USER&);
 void generateIndividualReportPercentage(USER&);
 int showMainMenu(USER&);
 int showLoginMenu();
-void generateClassReportByTeacher(USER&);
+void generateClassReportByModerator();
+
 
 
 
