@@ -2,9 +2,6 @@
 #define __USERGUARD__
 #include "user.h"
 #endif
-/**
-*
-*/
 bool logIn(USER&);
 bool createUser();
 bool changePassword(USER&);

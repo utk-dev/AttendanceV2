@@ -19,9 +19,14 @@
 #include "utils.h"
 #endif
 
+#ifndef __INVALIDEXCEPTION__
+#define __INVALIDEXCEPTION__
+#include <stdexcept>
+#endif // __INVALIDEXCEPTION__
+
 
 int getRnoByUid(std::string uid){
-    return std::stoi(uid.substr(2));
+        return std::stoi(uid.substr(2));
 }
 
 TYPE getTypeByUid(std::string uid){

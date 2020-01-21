@@ -39,13 +39,14 @@
 #define __IOMANIP__
 #include <iomanip>
 #endif // __IOMANIP__
+
 void generateClassReportByModerator();
 
 bool logIn(USER& succ)
 {
     std::string user_id,password = "";
-    std::cout << "## Log in ##\n";
-    std::cout << "\nUser Id : ";
+    std::cout << "\n#### Log in ####\n";
+    std::cout << "User Id : ";
     std::cin >> user_id;
     std::cout << "Password: ";
     std::cin >> password;
@@ -58,20 +59,28 @@ bool logIn(USER& succ)
     }
 
     TYPE utype = getTypeByUid(user_id);
-
-    if(getRnoByUid(user_id) < getRnoByUid(getNewUid(utype)))
+    try
     {
 
-        std::ifstream file;
-        openReadfileByType(utype, file);
+        if(getRnoByUid(user_id) < getRnoByUid(getNewUid(utype)))
+        {
 
-        file.seekg(sizeof(USER)*getRnoByUid(user_id), std::ios::beg);
-        file >> succ;
-        file.close();
+            std::ifstream file;
+            openReadfileByType(utype, file);
 
-        return password == succ.getPassword();
+            file.seekg(sizeof(USER)*getRnoByUid(user_id), std::ios::beg);
+            file >> succ;
+            file.close();
+            return password == succ.getPassword();
+        }
     }
-    return false;
+    catch(const std::invalid_argument& arge)
+    {
+        std::cout << "Inside catch\n\n\n";
+        return false;   // if format of UID is wrong
+    }
+    std::cout << "Outside here";
+    return false;       // if format of UID is valid but there is no record
 }
 
 bool createUser()
@@ -206,9 +215,10 @@ void generateClassReportPercentage(USER& usr)
 
         std::string filePath = "models/registers/" + usr.getUid() + ".dat";
         std::ifstream Register(filePath);
-             if(Register.is_open())
+        if(Register.is_open())
             std::cout << "Open";
-        else{
+        else
+        {
             std::cout<<"Not Open"<<Register.exceptions();
         }
         int totalCount[200];
@@ -221,7 +231,8 @@ void generateClassReportPercentage(USER& usr)
         Register.seekg(0, Register.beg);
         while(Register >> d)
         {
-            for(int j=0;j<total_student;j++){
+            for(int j=0; j<total_student; j++)
+            {
                 totalCount[j] += (d.attendance[j] == 'P' ? 1 : 0);
             }
         }
@@ -236,21 +247,22 @@ void generateClassReportPercentage(USER& usr)
     }
     else
     {
-       generateClassReportByModerator();
+        generateClassReportByModerator();
     }
     std::cout << "\n\n";
 }
 
-void generateClassReportByModerator(){
-        std::ifstream teachers, students;
-        openReadfileByType(TYPE::TEACHER, teachers);
-        USER teacher;
-        std::cout << "\n  UID  ";
-        while(teachers >> teacher)
-        {
-            generateClassReportPercentage(teacher);
-        }
-        teachers.close();
+void generateClassReportByModerator()
+{
+    std::ifstream teachers, students;
+    openReadfileByType(TYPE::TEACHER, teachers);
+    USER teacher;
+    std::cout << "\n  UID  ";
+    while(teachers >> teacher)
+    {
+        generateClassReportPercentage(teacher);
+    }
+    teachers.close();
 }
 
 
@@ -285,7 +297,7 @@ int showMainMenu(USER& curr)
 {
     int choice;
     TYPE t = curr.getUserType();
-            std::cout << "------------------------\n";
+    std::cout << "------------------------\n";
     do
     {
         if(t == TYPE::TEACHER)
@@ -304,9 +316,9 @@ int showMainMenu(USER& curr)
         {
             std::cout << "4. Generate Class Report\n";
         }
-            std::cout << "5. Change Password\n";
-            std::cout << "0. Log Out\n";
-            std::cout << "------------------------\n";
+        std::cout << "5. Change Password\n";
+        std::cout << "0. Log Out\n";
+        std::cout << "------------------------\n";
         std::cout << "Enter your choice: ";
         std::cin >> choice;
     }
@@ -326,7 +338,8 @@ int showLoginMenu()
         std::cout << "---------------------------------\n";
         std::cout << "Enter your choice: ";
         std::cin >> choice;
-    }while(choice < 1 || choice > 2);
+    }
+    while(choice < 1 || choice > 2);
     return choice;
 }
 
