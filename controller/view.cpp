@@ -40,14 +40,18 @@
 #include <iomanip>
 #endif // __IOMANIP__
 
+// #include <unistd.h>
 void generateClassReportByModerator();
 
 bool logIn(USER& succ)
 {
-    std::string user_id,password = "";
+    std::string user_id;
     std::cout << "\n#### Log in ####\n";
-    std::cout << "User Id : ";
+    std::cout << "User Id: ";
     std::cin >> user_id;
+    //char *pa = getpass("Password: ");
+    //std::string password(pa);
+    std::string password = "";
     std::cout << "Password: ";
     std::cin >> password;
 
@@ -179,7 +183,7 @@ void takeAttendance(USER& teacher)
     {
         Day d;
         USER curr;
-        std::cout << "\n\nATTENDANCE for " << d.getToday().day << "-" << d.getToday().month << "-" << d.getToday().year << "\n\n";
+        std::cout << "\n\nATTENDANCE for " << d.getToday().day << "-" << 1+d.getToday().month << "-" << 1900+d.getToday().year << "\n\n";
         std::cout << "Mark P/A for each student\n";
         while(fin >> curr)
         {

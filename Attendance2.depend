@@ -127,7 +127,7 @@
 1579599722 /home/utkarsh/Documents/AttendanceV2/models/day.h
 	<fstream>
 
-1579601713 source:/home/utkarsh/Documents/AttendanceV2/controller/view.cpp
+1579638629 source:/home/utkarsh/Documents/AttendanceV2/controller/view.cpp
 	"../models/user.h"
 	<iostream>
 	<fstream>
@@ -138,7 +138,7 @@
 	"../models/day.h"
 	<iomanip>
 
-1579599722 source:/home/utkarsh/Documents/AttendanceV2/main.cpp
+1579602092 source:/home/utkarsh/Documents/AttendanceV2/main.cpp
 	<iostream>
 	"models/utype.h"
 	"models/user.h"
