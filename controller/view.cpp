@@ -39,9 +39,9 @@
 #define __IOMANIP__
 #include <iomanip>
 #endif // __IOMANIP__
+void generateClassReportByModerator();
 
-
-
+r
 bool logIn(USER& succ)
 {
     std::string user_id,password = "";
@@ -197,27 +197,37 @@ void generateClassReportPercentage(USER& usr)
     std::cout << std::fixed << std::setprecision(2);
     if(usr.getUserType() == TYPE::TEACHER)
     {
-        std::string filePath = "models/registers/" + usr.getUid() + ".dat";
-        std::ifstream Register(filePath);
-        int totalCount[200];
-        Register.seekg(0, Register.end);
-        int totalDays = Register.tellg() / sizeof(Day);
-        for(int i = 0; i < totalDays; i++)
-            totalCount[i] = 0;
-
-        Day d;
-        int i = 0;
-        Register.seekg(0, Register.beg);
-        while(Register >> d)
-        {
-            totalCount[i] += (d.attendance[i] == 'P' ? 1 : 0);
-            i++;
-        }
-        Register.close();
 
         std::ifstream fin;
         USER curr;
         openReadfileByType(TYPE::STUDENT, fin);
+        fin.seekg(0,fin.end);
+        int total_student=fin.tellg()/sizeof(USER);
+        fin.seekg(0,fin.beg);
+
+        std::string filePath = "models/registers/" + usr.getUid() + ".dat";
+        std::ifstream Register(filePath);
+             if(Register.is_open())
+            std::cout << "Open";
+        else{
+            std::cout<<"Not Open"<<Register.exceptions();
+        }
+        int totalCount[200];
+        Register.seekg(0, Register.end);
+        int totalDays = Register.tellg() / sizeof(Day);
+        for(int i = 0; i < total_student; i++)
+            totalCount[i] = 0;
+
+        Day d;
+        Register.seekg(0, Register.beg);
+        while(Register >> d)
+        {
+            for(int j=0;j<total_student;j++){
+                totalCount[j] += (d.attendance[j] == 'P' ? 1 : 0);
+            }
+        }
+        Register.close();
+
         std::cout << "\n  Uid  |  Attendance  ";
         while(fin >> curr)
         {
@@ -227,49 +237,23 @@ void generateClassReportPercentage(USER& usr)
     }
     else
     {
-        int totalCount[10][200];
-        int totalDays[10] = {0};
-        for(int i = 0; i < 10; i++)
-            for(int j = 0; j < 200; j++)
-                totalCount[i][j] = 0;
+       generateClassReportByModerator();
+    }
+    std::cout << "\n\n";
+}
+
+void generateClassReportByModerator(){
         std::ifstream teachers, students;
         openReadfileByType(TYPE::TEACHER, teachers);
         USER teacher;
         std::cout << "\n  UID  ";
         while(teachers >> teacher)
         {
-            std::cout << "| " << teacher.getUid() << " ";
-            std::string filePath = "models/registers/" + teacher.getUid() + ".dat";
-            std::ifstream Register(filePath);
-            Day d;
-            int i = 0;
-            while(!Register.eof())
-            {
-                Register.read((char *)&d, sizeof(Day));
-                totalCount[teacher.getIndex()][i] += (d.attendance[i] == 'P' ? 1 : 0);
-            }
-            Register.seekg(0, Register.end);
-            totalDays[teacher.getIndex()] = Register.tellg() / sizeof(Day);
-            Register.close();
-        }
-        teachers.seekg(0, teachers.beg);
-
-        openReadfileByType(TYPE::STUDENT, students);
-        USER student;
-        while(students >> student)
-        {
-            std::cout << "\n" << student.getUid();
-            while(teachers >> teacher)
-            {
-                std::cout << " | " << totalCount[teacher.getIndex()][student.getIndex()]*100.00/totalDays[teacher.getIndex()] << "%";
-            }
-            teachers.seekg(0, teachers.beg);
+            generateClassReportPercentage(teacher);
         }
         teachers.close();
-        students.close();
-    }
-    std::cout << "\n\n";
 }
+
 
 void generateIndividualReportPercentage(USER& student)
 {
@@ -283,6 +267,7 @@ void generateIndividualReportPercentage(USER& student)
     {
         std::string filePath = "models/registers/" + teacher.getUid() + ".dat";
         std::ifstream Register(filePath);
+
         int total = 0;
         Day d;
         while(Register >> d)
