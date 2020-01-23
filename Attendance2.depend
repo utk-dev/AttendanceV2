@@ -158,3 +158,59 @@
 	<string>
 	<string.h>
 
+1579768568 source:c:\users\utk12\documents\college projects\attendancev2\controller\utils.cpp
+	<string>
+	<string.h>
+	"../models/user.h"
+	"../models/utype.h"
+	"utils.h"
+	<stdexcept>
+
+1579768568 c:\users\utk12\documents\college projects\attendancev2\models\user.h
+	"utype.h"
+	<fstream>
+	<string>
+	<string.h>
+
+1579768568 c:\users\utk12\documents\college projects\attendancev2\models\utype.h
+
+1579768568 c:\users\utk12\documents\college projects\attendancev2\controller\utils.h
+	<string>
+	<string.h>
+	"../models/utype.h"
+	<fstream>
+
+1579768568 source:c:\users\utk12\documents\college projects\attendancev2\controller\view.cpp
+	"../models/user.h"
+	<iostream>
+	<fstream>
+	<string>
+	<string.h>
+	<vector>
+	"utils.h"
+	"../models/day.h"
+	<iomanip>
+
+1579768568 c:\users\utk12\documents\college projects\attendancev2\models\day.h
+	<fstream>
+
+1579770397 source:c:\users\utk12\documents\college projects\attendancev2\main.cpp
+	<iostream>
+	"models/utype.h"
+	"models/user.h"
+	<fstream>
+	<string>
+	<string.h>
+	"controller/utils.h"
+	"controller/view.h"
+
+1579768568 c:\users\utk12\documents\college projects\attendancev2\controller\view.h
+	"user.h"
+
+1579768568 source:c:\users\utk12\documents\college projects\attendancev2\models\user.cpp
+	<iostream>
+	"user.h"
+	<fstream>
+	<string>
+	<string.h>
+

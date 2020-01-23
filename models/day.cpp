@@ -1,5 +1,5 @@
-#ifndef __TIME__
-#define __TIME__
+#ifndef __TIMEGUARD__
+#define __TIMEGUARD__
 #include <ctime>
 #endif // __TIME__
 
@@ -16,7 +16,8 @@
 
 bool Day::setToday()
 {
-    time_t curr = time(nullptr);    // get current time as an integer
+    //time_t curr = time(nullptr);    // get current time as an integer
+    time_t curr = time(nullptr);
     tm *t = localtime(&curr);       // convert curr into a readable structure
     today.day = t->tm_mday;
     today.month = t->tm_mon;
