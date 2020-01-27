@@ -160,7 +160,7 @@ do {
       break;
     case 2:
       if(CURR.USERTYPE != TYPE.TEACHER) {
-        "wrong choice nigga"
+        "wrong choice"
       } else {
         GENERATE_CLASS_REPORT_perc(CURR);
       }
@@ -168,14 +168,14 @@ do {
     case 3:
       if(CURR.USERTYPE != TYPE.STUDENT)
       {
-        "wrong choice nigga"
+        "wrong choice"
       }else{
         GENERATE_INDIVIDUAL_REPORT_perc(CURR);
       }
     case 4:
       if(CURR.USERTYPE != TYPE.MODERATER)
       {
-        "wrong choice nigga"
+        "wrong choice"
       }else{
         CREATE_USER(CURR);
       }
@@ -183,7 +183,7 @@ do {
       CHANGE_PASSWORD(CURR)
     case 6:
       LOGGEDIN=FALSE;
-    default: "wrong choice nigga"
+    default: "wrong choice"
   }
 
 } while(LOGGEDIN)

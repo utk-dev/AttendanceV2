@@ -20,3 +20,5 @@ class Day{
 std::ifstream& operator>>(std::ifstream&, Day&);
 std::ofstream& operator<<(std::ofstream&, const Day&);
 
+std::fstream& operator<<(std::fstream&, const Day&);
+

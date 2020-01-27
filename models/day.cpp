@@ -47,3 +47,9 @@ std::ofstream& operator<<(std::ofstream& f, const Day &d)
     f.write((char *)&d, sizeof(Day));
     return f;
 }
+
+std::fstream& operator<<(std::fstream& f, const Day &d)
+{
+    f.write((char *)&d, sizeof(Day));
+    return f;
+}

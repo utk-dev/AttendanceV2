@@ -180,7 +180,7 @@
 	"../models/utype.h"
 	<fstream>
 
-1579768568 source:c:\users\utk12\documents\college projects\attendancev2\controller\view.cpp
+1580093497 source:c:\users\utk12\documents\college projects\attendancev2\controller\view.cpp
 	"../models/user.h"
 	<iostream>
 	<fstream>
@@ -191,10 +191,10 @@
 	"../models/day.h"
 	<iomanip>
 
-1579768568 c:\users\utk12\documents\college projects\attendancev2\models\day.h
+1580093645 c:\users\utk12\documents\college projects\attendancev2\models\day.h
 	<fstream>
 
-1579770397 source:c:\users\utk12\documents\college projects\attendancev2\main.cpp
+1580093183 source:c:\users\utk12\documents\college projects\attendancev2\main.cpp
 	<iostream>
 	"models/utype.h"
 	"models/user.h"
@@ -207,10 +207,15 @@
 1579768568 c:\users\utk12\documents\college projects\attendancev2\controller\view.h
 	"user.h"
 
-1579768568 source:c:\users\utk12\documents\college projects\attendancev2\models\user.cpp
+1580092010 source:c:\users\utk12\documents\college projects\attendancev2\models\user.cpp
 	<iostream>
 	"user.h"
 	<fstream>
 	<string>
 	<string.h>
+
+1580093695 source:c:\users\utk12\documents\college projects\attendancev2\models\day.cpp
+	<ctime>
+	<iostream>
+	"day.h"
 

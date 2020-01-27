@@ -193,7 +193,7 @@ void takeAttendance(USER& teacher)
         fin.close();
 
         std::string filePath = "models/registers/" + teacher.getUid() + ".dat";
-        std::ofstream file(filePath, std::ios::binary | std::ios::app);
+        std::fstream file(filePath, std::ios::binary | std::ios::app);
         file << d;
         file.close();
     }

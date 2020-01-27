@@ -1,7 +1,7 @@
 #ifndef __IOSTREAM__
 #define __IOSTREAM__
 #include <iostream>
-#endif // __IOSTREAM__
+#endif
 
 #ifndef __USERGUARD__
 #define __USERGUARD__

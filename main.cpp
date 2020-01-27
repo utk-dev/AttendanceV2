@@ -73,7 +73,7 @@ void addDummyData()
 
 int main()
 {
-    addDummyData();
+    //addDummyData();
     bool loggedIn = false;
     while(!loggedIn)
     {
