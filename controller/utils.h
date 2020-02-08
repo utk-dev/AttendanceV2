@@ -15,7 +15,6 @@
 #include <fstream>
 #endif
 
-
 int getRnoByUid(std::string);
 USER getUserByUid(std::string);
 TYPE getTypeByUid(std::string);
