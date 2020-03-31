@@ -24,7 +24,7 @@ Certain assumptions have been made to simplify the application:
 ## How to use
 
 Linux executable is available [here](https://github.com/utk-dev/AttendanceV2/releases/tag/v0.1-alpha) (with instructions).
-Windows binary will be available soon.
+Windows binary is available [here](https://github.com/utk-dev/AttendanceV2/releases/tag/v0.2-alpha) (with instructions).
 
 You can also compile this project yourself. It requires you to enable C++11 flag in your compiler (Currently only g++ and minGW have been tested). No external libraries are required for now.
 
