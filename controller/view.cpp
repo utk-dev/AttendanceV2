@@ -40,7 +40,7 @@
 #include <iomanip>
 #endif // __IOMANIP__
 
-// #include <unistd.h>
+// #include <unistd.h> -- won't work on windows
 void generateClassReportByModerator();
 
 bool logIn(USER& succ)

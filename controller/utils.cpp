@@ -24,11 +24,18 @@
 #include <stdexcept>
 #endif // __INVALIDEXCEPTION__
 
-
+/** returns integer part of the given user ID
+*   @param uid - USER ID
+*   @return integer part of the user ID
+*/
 int getRnoByUid(std::string uid){
         return std::stoi(uid.substr(2));
 }
 
+/** returns USERTYPE of the given user ID
+*   @param uid - USER ID
+*   @return usertype in the form of enumeration TYPE
+*/
 TYPE getTypeByUid(std::string uid){
     std::string prefix = uid.substr(0, 2);
     if(prefix == "ST")
@@ -39,6 +46,10 @@ TYPE getTypeByUid(std::string uid){
         return TYPE::MODERATOR;
 }
 
+/** Opens read-only file of the specified TYPE
+*   @param type - TYPE of the users whose file is to be openend
+*   @param file - stream to which the 'read' access is given
+*/
 void openReadfileByType(TYPE type, std::ifstream& file){
     switch(type){
         case TYPE::STUDENT:
@@ -52,6 +63,10 @@ void openReadfileByType(TYPE type, std::ifstream& file){
     }
 }
 
+/** Opens write-only file of the specified TYPE
+*   @param type - TYPE of the users whose file is to be openend
+*   @param file - stream to which the 'write' access is given
+*/
 void openWritefileByType(TYPE type, std::ofstream& file){
     switch(type){
         case TYPE::STUDENT:
