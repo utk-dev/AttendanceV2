@@ -40,6 +40,24 @@
 #include <iomanip>
 #endif // __IOMANIP__
 
+#ifndef __NCURSES__
+#define __NCURSES__
+#include <ncurses.h>
+#endif // __NCURSES__
+
+std::string getpass(const char *prompt)     //using the ncurses library
+{
+  printw(prompt);
+  noecho();  // disable character echoing
+
+  char buff[32];
+  getnstr(buff,sizeof(buff));
+
+  echo(); // enable character echoing again
+  return buff;
+}
+
+
 // #include <unistd.h> -- won't work on windows
 void generateClassReportByModerator();
 
