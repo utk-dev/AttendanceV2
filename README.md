@@ -3,7 +3,7 @@
  
  _Note: This application is a **code::blocks** project._
 
-Project Authors: [Utkarsh Gupta](https://www.github.com/utk-dev), [Ronit Chopada](https://www.github.com/ronit9586).
+Project Authors: [Utkarsh Gupta](https://www.github.com/utk-dev), [Ronit Chopada](https://www.github.com/ronit9586), [Arnav Dixit](https://github.com/arnav127)
 
 ## Introduction
 
