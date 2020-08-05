@@ -69,9 +69,7 @@ bool logIn(USER& succ)
     std::cin >> user_id;
     //char *pa = getpass("Password: ");
     //std::string password(pa);
-    std::string password = "";
-    std::cout << "Password: ";
-    std::cin >> password;
+    std::string password = getpass("Password: ");
 
     std::string uidPrefix = user_id.substr(0,2);
 
