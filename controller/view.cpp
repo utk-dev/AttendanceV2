@@ -45,18 +45,20 @@
 #include <ncurses.h>
 #endif // __NCURSES__
 
-std::string getpass(const char *prompt)     //using the ncurses library
+std::string getpass(const char *prompt)     // Using the ncurses library
 {
-  printw(prompt);
-  noecho();  // disable character echoing
+  initscr();                    // Initialise ncurses screen
+  erase();                      // Erase anything leftover from previous outputs on the terminal
+  printw(prompt);               // Print the prompt to the screen
+  noecho();                     // Disable character echoing
 
-  char buff[32];
-  getnstr(buff,sizeof(buff));
+  char buff[200];               // Buffer size: 200
+  getnstr(buff,sizeof(buff));   // Take input from the user
 
-  echo(); // enable character echoing again
-  return buff;
+  echo();                       // Enable character echoing again
+  endwin();                     // Go back to the main screen
+  return std::string(buff);     // Explicit conversion
 }
-
 
 // #include <unistd.h> -- won't work on windows
 void generateClassReportByModerator();
