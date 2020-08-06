@@ -40,6 +40,26 @@
 #include <iomanip>
 #endif // __IOMANIP__
 
+#ifndef __NCURSES__
+#define __NCURSES__
+#include <ncurses.h>
+#endif // __NCURSES__
+
+std::string getpass(const char *prompt)     // Using the ncurses library
+{
+  initscr();                    // Initialise ncurses screen
+  erase();                      // Erase anything leftover from previous outputs on the terminal
+  printw(prompt);               // Print the prompt to the screen
+  noecho();                     // Disable character echoing
+
+  char buff[200];               // Buffer size: 200
+  getnstr(buff,sizeof(buff));   // Take input from the user
+
+  echo();                       // Enable character echoing again
+  endwin();                     // Go back to the main screen
+  return std::string(buff);     // Explicit conversion
+}
+
 // #include <unistd.h> -- won't work on windows
 void generateClassReportByModerator();
 
@@ -51,9 +71,7 @@ bool logIn(USER& succ)
     std::cin >> user_id;
     //char *pa = getpass("Password: ");
     //std::string password(pa);
-    std::string password = "";
-    std::cout << "Password: ";
-    std::cin >> password;
+    std::string password = getpass("Password: ");
 
     std::string uidPrefix = user_id.substr(0,2);
 

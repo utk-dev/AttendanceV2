@@ -3,7 +3,7 @@
  
  _Note: This application is a **code::blocks** project._
 
-Project Authors: [Utkarsh Gupta](https://www.github.com/utk-dev), [Ronit Chopada](https://www.github.com/ronit9586).
+Project Authors: [Utkarsh Gupta](https://www.github.com/utk-dev), [Ronit Chopada](https://www.github.com/ronit9586), [Arnav Dixit](https://github.com/arnav127)
 
 ## Introduction
 
@@ -26,7 +26,7 @@ Certain assumptions have been made to simplify the application:
 Linux executable is available [here](https://github.com/utk-dev/AttendanceV2/releases/tag/v0.1-alpha) (with instructions).
 Windows binary is available [here](https://github.com/utk-dev/AttendanceV2/releases/tag/v0.2-alpha) (with instructions).
 
-You can also compile this project yourself. It requires you to enable C++11 flag in your compiler (Currently only g++ and minGW have been tested). No external libraries are required for now.
+You can also compile this project yourself. It requires you to enable C++11 flag in your compiler (Currently only g++ and minGW have been tested). Curses library is used to securely take password inputs and it needs to be installed if compiling the code from source.
 
 
 ## Contribute
